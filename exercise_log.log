@@ -1,0 +1,7 @@
+
+2024-06-01 10:00:00 INFO 192.168.1.10 User logged in
+2024-06-01 10:05:00 WARNING 192.168.1.11 Disk nearly full
+2024-06-01 10:06:00 INFO 192.168.1.10 User changed password
+2024-06-01 10:07:00 ERROR 192.168.1.12 Connection failed
+2024-06-01 10:10:00 WARNING 192.168.1.11 Temporary network issue
+2024-06-01 10:15:00 INFO 192.168.1.13 Service restarted
