@@ -1,0 +1,5 @@
+# Everything this workshop needs: the two packages the notebooks use, plus the
+# grader you run yourself.
+requests==2.32.3
+psutil==6.1.0
+pytest==8.3.4
