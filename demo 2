@@ -1,0 +1,24 @@
+import requests  # third-party HTTP library
+
+# Technique 1: make a request, inspect status_code / headers / text
+demo_url = "https://httpbin.org/json"  # a public test endpoint returning JSON
+response = requests.get(demo_url)  # issue an HTTP GET request
+
+print("status code:", response.status_code)  # the numeric HTTP status returned
+print("headers (subset):", dict(list(response.headers.items())[:3]))  # first 3 response headers as a dict
+print("body preview:", response.text[:100])  # first 100 characters of the response body
+
+# Technique 2: loop over multiple URLs, flag anything that isn't 200
+demo_urls = [
+    "https://httpbin.org/status/200",  # endpoint that always returns 200
+    "https://httpbin.org/status/403",  # endpoint that always returns 403
+    "https://httpbin.org/status/404",  # endpoint that always returns 404
+]  # list of test endpoints to check
+
+for u in demo_urls:  # loop over each URL
+    r = requests.get(u)  # request the URL
+    flag = "" if r.status_code == 200 else "  <-- FLAGGED"  # mark anything that isn't a 200 OK
+    print(f"{u} -> {r.status_code}{flag}")  # print the URL, its status, and any flag
+
+
+    
