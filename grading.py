@@ -10,7 +10,7 @@ The plugin tallies those, prints a scorecard, writes a JSON report, and adds a
 markdown summary to the GitHub Actions job page. Ceiling tests never fail the
 build -- the exit code comes from floor tests alone.
 """
-
+#0
 from __future__ import annotations
 
 import json

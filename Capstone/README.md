@@ -1,5 +1,5 @@
 # Capstone — End-to-End Triage Script
-
+.
 > Notebook reference: `Day_3/Day-3-Activities.ipynb` §3.5 and §3.6.
 
 Build one tool that answers the first three questions an analyst asks at a

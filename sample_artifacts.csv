@@ -5,3 +5,4 @@ timestamp,event_type,path
 2026-01-04T09:05:44,process_started,/tmp/dropper.sh
 2026-01-04T10:02:10,file_created,/home/user/report.docx
 2026-01-04T10:03:00,file_deleted,/tmp/payload.bin
+.

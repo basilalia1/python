@@ -2,7 +2,7 @@
 
 Graded against `submissions/capstone.py` and `Capstone/README.md`. This suite
 both imports the module and runs the file as a real command, because the
-deliverable is a script someone else has to be able to run.
+ .deliverable is a script someone else has to be able to run.
 """
 
 import hashlib

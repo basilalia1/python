@@ -6,7 +6,7 @@
 #   ./grade.sh capstone     just the capstone
 #   ./grade.sh --rubric     what every task is worth
 #   ./grade.sh --solutions  instructor: check the rubric against solutions/
-#
+#-
 # Windows without bash? Run the equivalent directly:
 #   python -m pytest tests/test_day1.py
 set -euo pipefail
