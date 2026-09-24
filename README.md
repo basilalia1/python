@@ -1,50 +1,64 @@
-# 🚀 Python Workshop: Capstone Project
+# Capstone — End-to-End Triage Script
+.
+> Notebook reference: `Day_3/Day-3-Activities.ipynb` §3.5 and §3.6.
 
-Welcome to the **Python Workshop Capstone Project**! This project serves as the final, comprehensive assessment of your journey through the workshop. It is designed to combine core programming fundamentals with practical software development workflows, problem-solving, and data handling.
+Build one tool that answers the first three questions an analyst asks at a
+suspect machine: **what is running**, **what changed recently**, and **what are
+these files** (a SHA-256 for each, so anything can be re-checked later).
 
----
+Your code goes in [`../submissions/capstone.py`](../submissions/capstone.py),
+which is both importable and runnable:
 
-## 📌 Project Overview
+```bash
+python submissions/capstone.py sample_evidence
+```
 
-For this capstone, students are required to design, build, and document a fully functional Python application. The project must solve a real-world problem or streamline a business process, demonstrating mastery of the core Python concepts covered throughout the workshop.
-
-### 💡 Project Ideas & Scope
-You may choose one of the following tracks or propose a custom project (subject to instructor approval):
-1. **Data Analytics & Automation Pipeline**: Fetch data from an external API or dynamic CSV/JSON dataset, perform data cleaning and transformation using Pandas, and generate automated visual reports/summaries.
-2. **Interactive CLI / Utility Tool**: Build an interactive Command Line Interface (CLI) application with persistent data storage (SQLite or file-based JSON/CSV), robust user input validation, and modular structure.
-3. **Web Scraper & Analysis Tool**: Construct an ethical web scraping tool (using `BeautifulSoup` or `requests`), parse and store structured data, and output insights/metrics to the user.
-4. **Task/Inventory Management System**: Develop an Object-Oriented Programming (OOP) system managing entities, state, transactions, and historical reporting.
-
----
-
-## 🛠️ Required Technical Components
-
-To pass the capstone project, your codebase **must** incorporate the following elements:
-
-* **Modular Code Architecture**: Clear organization across separate modules/files (e.g., `main.py`, `models.py`, `utils.py`, `data_handler.py`).
-* **Object-Oriented Programming (OOP)** or Functional Paradigms: Effective use of custom classes, methods, encapsulated state, or pure functional structures.
-* **Data Persistence**: Ability to read from and write to external files (`.csv`, `.json`, `.txt`) or a relational database (`SQLite`).
-* **Error Handling & Input Validation**: Implementation of `try-except` blocks to handle edge cases, missing files, API rate limits, and invalid user inputs gracefully.
-* **External Package / API Integration**: Utilization of standard libraries alongside third-party modules (e.g., `requests`, `pandas`, `matplotlib`, `rich`, or `pytest`).
-* **Clean & Readable Code**: PEP 8 compliance, informative variable/function naming, concise comments, and explicit docstrings for major functions/classes.
+Graded on: correct hashes, a time window that is actually respected, a
+`run_triage()` that returns its report, and a missing folder that produces a
+clean error rather than a traceback. Running from a shell and this write-up are
+stretch points. Check with `./grade.sh capstone`.
 
 ---
 
-## 📂 Repository Structure
+## Your write-up
 
-Your final submission repository should adhere to a clean layout similar to this:
+Replace the placeholders below — this is §3.6. Write it so another analyst can
+run your tool without you in the room.
+
+### Purpose
+
+This tool collects running processes, recently modified files, and SHA-256 hashes of files in a folder. It helps an analyst understand what is running, what changed recently, and identify files that can be checked again later.
+
+### Requirements
+
+Python 3 is required. The tool uses the Python standard library. If psutil is installed, it is used to collect running processes; otherwise, the tool falls back to the ps aux command.
+
+### How to run
+
+```bash
+python submissions/capstone.py <folder>
+```
+
+If no folder is provided, the tool uses `sample_evidence` by default.
+
+### Example output
 
 ```text
-capstone_project/
-├── data/                  # Sample or generated datasets (CSV, JSON, DB)
-│   └── sample_data.csv
-├── src/                   # Core application source code
-│   ├── __init__.py
-│   ├── main.py            # Main entry point for running the application
-│   ├── utils.py           # Helper functions and validations
-│   └── logic.py           # Main business/data processing logic
-├── tests/                 # Unit tests (optional/extra credit)
-│   └── test_logic.py
-├── .gitignore             # Git ignore file for __pycache__, envs, etc.
-├── requirements.txt       # List of Python dependencies
-└── README.md              # Project documentation and setup instructions
+Processes:
+1234 python
+5678 code
+9012 explorer.exe
+
+Recent Files:
+('notes.txt', 45)
+('report.docx', 120)
+
+Hashes:
+notes.txt: 13d0f715fc93d1b3b9d94ba4a7392299fd1cfbe570119a2f5f76e6b627c7ca3b
+payload.bin: 78649806a835ec7a2ee4841b75a3b90f9da7a8fd8470f3164cb885f6cc683b04
+report.docx: 9b061022b2f31e808e109e1b97b592e802a5458bfbc3f50fe2412f21aa8251b0
+```
+
+### Known limitations
+
+The tool only checks files directly inside the target folder and does not scan subfolders. Recent files are based on modification time. Process information also depends on the operating system and whether psutil is installed. With more time, I would add recursive scanning, more detailed process information, and better cross-platform process collection.
