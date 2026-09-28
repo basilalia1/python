@@ -1,0 +1,39 @@
+exercise_log = '''
+2024-06-01 10:00:00 INFO 192.168.1.10 User logged in
+2024-06-01 10:05:00 WARNING 192.168.1.11 Disk nearly full
+2024-06-01 10:06:00 INFO 192.168.1.10 User changed password
+2024-06-01 10:07:00 ERROR 192.168.1.12 Connection failed
+2024-06-01 10:10:00 WARNING 192.168.1.11 Temporary network issue
+2024-06-01 10:15:00 INFO 192.168.1.13 Service restarted
+'''
+
+with open("exercise_log.log", "w") as f:  # open (create/overwrite) the demo log file for writing
+    f.write(exercise_log)  # write the sample log text to disk
+
+print("exercise_log.log written.")  # confirm the file was created
+
+from collections import Counter
+counter = Counter()
+with open("exercise_log.log") as f:
+    for line in f:
+        parts = line.split()
+        if len(parts) >= 3:
+            level = parts[2]
+            counter[level] += 1
+
+print("INFO:", counter["INFO"], "WARNING:", counter["WARNING"], "ERROR:", counter["ERROR"])
+
+import re
+with open('exercise_log.log', 'r') as file:
+    log_data = file.read()
+
+ip_pattern = r'\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b'
+all_ips = re.findall(ip_pattern, log_data)
+
+unique_ips = set(all_ips)
+print(unique_ips)
+
+
+
+
+

@@ -1,0 +1,69 @@
+#Q1
+import requests  
+response = requests.get("https://httpbin.org/uuid")  
+data = response.json()  
+print(data["uuid"])  
+
+#Q2
+
+exercise_connections_csv = """timestamp,src_ip,dst_port,protocol,bytes
+2026-03-02T11:00:01,10.2.0.5,443,tcp,4000
+2026-03-02T11:00:04,10.2.0.6,53,udp,120
+2026-03-02T11:00:09,10.2.0.5,443,tcp,6500
+2026-03-02T11:00:15,10.2.0.7,8080,tcp,300
+2026-03-02T11:00:22,10.2.0.6,53,udp,90
+2026-03-02T11:00:30,10.2.0.5,443,tcp,2200
+""" 
+
+with open("exercise_connections.csv", "w") as f: 
+    f.write(exercise_connections_csv)
+import csv
+from collections import Counter
+
+total_bytes = Counter()
+
+with open("exercise_connections.csv", "r") as f:
+    reader = csv.DictReader(f)
+
+    for row in reader:
+        src_ip = row["src_ip"]
+        bytes_transferred = int(row["bytes"])
+        total_bytes[src_ip] += bytes_transferred
+
+highest_ip, highest_bytes = total_bytes.most_common(1)[0]
+
+print(f"Highest: {highest_ip} with {highest_bytes} bytes")
+
+#Q3
+
+import hashlib  
+import socket  
+
+def port_status(host, port):
+    """Check whether a TCP port is open on a host."""
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(1)
+    try:
+        sock.connect((host, port))
+        return "open"
+    except OSError:
+        return "closed"
+    finally:
+        sock.close()
+
+
+def quick_check(path, host, port):
+    """Return {'sha256': ..., 'port_status': 'open'|'closed'}."""
+
+    with open(path, "rb") as f:
+        file_hash = hashlib.sha256(f.read()).hexdigest()
+
+    port_result = port_status(host, port)
+
+    return {"sha256": file_hash, "port_status": port_result}
+
+
+print(quick_check("sample_file.txt", "127.0.0.1", 22))
+
+
+
