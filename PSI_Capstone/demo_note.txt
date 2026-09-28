@@ -1,1 +1,0 @@
-Techniques demo file -- do not use for the hashing lab.
